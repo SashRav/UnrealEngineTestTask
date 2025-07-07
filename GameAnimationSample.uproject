@@ -64,6 +64,10 @@
 		{
 			"Name": "NetworkPrediction",
 			"Enabled": true
+		},
+		{
+			"Name": "MotionTrajectory",
+			"Enabled": true
 		}
 	],
 	"EpicSampleNameHash": "1673045636"

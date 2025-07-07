@@ -14,7 +14,8 @@ public class GameAnimationSample : ModuleRules
 			"Engine", 
 			"InputCore",
 			"EnhancedInput",
-		});
+            "MotionTrajectory"
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

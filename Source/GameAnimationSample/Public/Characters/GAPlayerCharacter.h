@@ -9,6 +9,7 @@
 class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
+class UCharacterTrajectoryComponent;
 struct FInputActionValue;
 
 UCLASS()
@@ -38,9 +39,13 @@ public:
 	UInputAction* LookAction;
 
 	// Components
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	USpringArmComponent* CameraBoom;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	UCameraComponent* FollowCamera;
+
+	// Animation Trajectory
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UCharacterTrajectoryComponent* TrajectoryComponent;
 };
