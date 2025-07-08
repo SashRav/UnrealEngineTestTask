@@ -4,19 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "GAHealingZone.generated.h"
+#include "GAEffectZone.generated.h"
 
 class UGameplayEffect;
 
 UCLASS()
-class GAMEANIMATIONSAMPLE_API AGAHealingZone : public AActor
+class GAMEANIMATIONSAMPLE_API AGAEffectZone : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	AGAHealingZone();
+	AGAEffectZone();
 
 protected:
+	virtual void BeginPlay() override;
+
 	//Gameplay Effectes
 	UFUNCTION(BlueprintCallable, Category = "Effects")
 	void ApplyEffectToTarget(AActor* InTargetActor);
