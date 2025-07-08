@@ -37,7 +37,8 @@ void AGAPlayerCharacter::BeginPlay()
 
 	check(MoveAction);
 	check(LookAction);
-	
+
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
 
 void AGAPlayerCharacter::Tick(float DeltaTime)
