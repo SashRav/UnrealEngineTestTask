@@ -9,4 +9,6 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 
     if (GEngine)
         GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Ability Works from code"));
+
+    EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 }
