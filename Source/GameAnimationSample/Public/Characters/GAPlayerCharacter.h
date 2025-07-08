@@ -13,6 +13,7 @@ class UCameraComponent;
 class UCharacterTrajectoryComponent;
 class UGAPlayerAbilitySystemComponent;
 class UGAHealthAttributeSet;
+class UGameplayAbility;
 struct FInputActionValue;
 
 UCLASS()
@@ -20,29 +21,36 @@ class GAMEANIMATIONSAMPLE_API AGAPlayerCharacter : public ACharacter, public IAb
 {
 	GENERATED_BODY()
 
-public:
-
 protected:
 	virtual void BeginPlay() override;
 
 public:	
 	AGAPlayerCharacter();
-	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
-	// Charater Movement
-	void Move(const FInputActionValue& Value);
-	void Look(const FInputActionValue& Value);
 
 	//Ability System
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	TObjectPtr<UGAHealthAttributeSet> GetHealthAttributeSet() const { return HealthAttributeSet; }
+
+protected:
+	// Charater Movement
+	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
+	
+	// Setup Default Abilities
+	void GiveDefaultAbilities();
+
+	//Run Attack Ability
+	void AttackEnemy(const FInputActionValue& Value);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TObjectPtr<UInputAction> LookAction = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TObjectPtr<UInputAction> AttackAction = nullptr;
 
 	// Components
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
@@ -52,7 +60,7 @@ public:
 	TObjectPtr<UCameraComponent> FollowCamera = nullptr;
 
 	// Animation Trajectory
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UCharacterTrajectoryComponent> TrajectoryComponent = nullptr;
 
 	//Ablity System
@@ -61,4 +69,7 @@ public:
 
 	UPROPERTY()
 	TObjectPtr<UGAHealthAttributeSet> HealthAttributeSet = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
+	TSubclassOf<UGameplayAbility> AttackAbility;
 };

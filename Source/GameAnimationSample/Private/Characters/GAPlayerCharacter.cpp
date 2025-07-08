@@ -37,13 +37,12 @@ void AGAPlayerCharacter::BeginPlay()
 
 	check(MoveAction);
 	check(LookAction);
+	check(AttackAction);
+	check(AttackAbility);
 
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
-}
-
-void AGAPlayerCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	
+	GiveDefaultAbilities();
 }
 
 // Called to bind functionality to input
@@ -55,6 +54,7 @@ void AGAPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	{
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGAPlayerCharacter::Look);
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGAPlayerCharacter::Move);
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Started, this, &AGAPlayerCharacter::AttackEnemy);
 	}
 }
 
@@ -89,5 +89,28 @@ void AGAPlayerCharacter::Look(const FInputActionValue& Value)
 UAbilitySystemComponent* AGAPlayerCharacter::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+void AGAPlayerCharacter::GiveDefaultAbilities()
+{
+	if (!AbilitySystemComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in GiveDefaultAbilities()"));
+		return;
+	}
+	
+	const FGameplayAbilitySpec AbilitySpec(AttackAbility, 1);
+	AbilitySystemComponent->GiveAbility(AbilitySpec);
+}
+
+void AGAPlayerCharacter::AttackEnemy(const FInputActionValue& Value)
+{
+	if (!AbilitySystemComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in AttackEnemy()"));
+		return;
+	}
+
+	AbilitySystemComponent->TryActivateAbilityByClass(AttackAbility);
 }
 
