@@ -14,7 +14,10 @@ public class GameAnimationSample : ModuleRules
 			"Engine", 
 			"InputCore",
 			"EnhancedInput",
-            "MotionTrajectory"
+            "MotionTrajectory",
+			"GameplayAbilities",
+            "GameplayTags",
+            "GameplayTasks"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

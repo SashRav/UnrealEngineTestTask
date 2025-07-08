@@ -7,6 +7,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "CharacterTrajectoryComponent.h"
+#include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
+#include "AbilitySystem/Attributes/GAHealthAttributeSet.h"
 
 AGAPlayerCharacter::AGAPlayerCharacter()
 {
@@ -21,7 +23,12 @@ AGAPlayerCharacter::AGAPlayerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
+	//Animations setup
 	TrajectoryComponent = CreateDefaultSubobject<UCharacterTrajectoryComponent>(TEXT("TrajectoryComponent"));
+
+	//Ability System setup
+	AbilitySystemComponent = CreateDefaultSubobject<UGAPlayerAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	HealthAttributeSet = CreateDefaultSubobject<UGAHealthAttributeSet>(TEXT("HealthAttributeSet"));
 }
 
 void AGAPlayerCharacter::BeginPlay()
@@ -76,5 +83,10 @@ void AGAPlayerCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+UAbilitySystemComponent* AGAPlayerCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 

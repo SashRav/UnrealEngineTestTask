@@ -4,48 +4,61 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "GAPlayerCharacter.generated.h"
 
 class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
 class UCharacterTrajectoryComponent;
+class UGAPlayerAbilitySystemComponent;
+class UGAHealthAttributeSet;
 struct FInputActionValue;
 
 UCLASS()
-class GAMEANIMATIONSAMPLE_API AGAPlayerCharacter : public ACharacter
+class GAMEANIMATIONSAMPLE_API AGAPlayerCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
-	AGAPlayerCharacter();
 
 protected:
 	virtual void BeginPlay() override;
 
 public:	
+	AGAPlayerCharacter();
 	virtual void Tick(float DeltaTime) override;
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 	// Charater Movement
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	UInputAction* MoveAction;
+	//Ability System
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	TObjectPtr<UGAHealthAttributeSet> GetHealthAttributeSet() const { return HealthAttributeSet; }
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	UInputAction* LookAction;
+	TObjectPtr<UInputAction> MoveAction = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TObjectPtr<UInputAction> LookAction = nullptr;
 
 	// Components
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	USpringArmComponent* CameraBoom;
+	TObjectPtr<USpringArmComponent> CameraBoom = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	UCameraComponent* FollowCamera;
+	TObjectPtr<UCameraComponent> FollowCamera = nullptr;
 
 	// Animation Trajectory
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	UCharacterTrajectoryComponent* TrajectoryComponent;
+	TObjectPtr<UCharacterTrajectoryComponent> TrajectoryComponent = nullptr;
+
+	//Ablity System
+	UPROPERTY()
+	TObjectPtr<UGAPlayerAbilitySystemComponent> AbilitySystemComponent = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UGAHealthAttributeSet> HealthAttributeSet = nullptr;
 };
