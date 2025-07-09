@@ -3,22 +3,33 @@
 
 #include "AbilitySystem/Ability/GAAttackAbility.h"
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
+#include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
+#include "Characters/GAPlayerCharacter.h"
 
 void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
-    Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-    check(AttackAnimation);
+	LocalHandle = Handle;
+	LocalActorInfo = *ActorInfo;
+	LocalActivationInfo = ActivationInfo;
 
-    if (GEngine)
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Ability Works from code"));
+	check(AttackAnimation);
 
-    GetAbilitySystemComponentFromActorInfo()->AddLooseGameplayTags(ActivationOwnedTags);
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Ability Works from code"));
 
-    EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
+	GetAbilitySystemComponentFromActorInfo()->AddLooseGameplayTags(ActivationOwnedTags);
+
+	FTimerHandle AbilityhDurationTime;
+	GetWorld()->GetTimerManager().SetTimer(AbilityhDurationTime, this, &UGAAttackAbility::OnEndAbilityAnimation, AttackAnimation->GetPlayLength(), false);
 }
 
-void UGAAttackAbility::EndAbilityAnimation()
+void UGAAttackAbility::OnEndAbilityAnimation()
 {
-    GetAbilitySystemComponentFromActorInfo()->RemoveLooseGameplayTags(ActivationOwnedTags);
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Ability Ended"));
+	GetAbilitySystemComponentFromActorInfo()->RemoveLooseGameplayTags(ActivationOwnedTags);
+
+	EndAbility(LocalHandle, &LocalActorInfo, LocalActivationInfo, true, false);
 }
