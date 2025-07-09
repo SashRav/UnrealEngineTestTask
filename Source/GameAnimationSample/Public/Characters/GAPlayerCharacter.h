@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayTagContainer.h"
 #include "GAPlayerCharacter.generated.h"
 
 class UInputAction;
@@ -64,7 +65,7 @@ protected:
 	TObjectPtr<UCharacterTrajectoryComponent> TrajectoryComponent = nullptr;
 
 	//Ablity System
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UGAPlayerAbilitySystemComponent> AbilitySystemComponent = nullptr;
 
 	UPROPERTY()
@@ -72,4 +73,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
 	TSubclassOf<UGameplayAbility> AttackAbility;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
+	FGameplayTagContainer GameplayTagsContainer;
 };

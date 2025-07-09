@@ -6,6 +6,8 @@
 #include "Abilities/GameplayAbility.h"
 #include "GAAttackAbility.generated.h"
 
+class UAnimSequence;
+
 UCLASS()
 class GAMEANIMATIONSAMPLE_API UGAAttackAbility : public UGameplayAbility
 {
@@ -18,5 +20,10 @@ public:
 		const FGameplayAbilityActivationInfo ActivationInfo,
 		const FGameplayEventData* TriggerEventData) override;
 
+	void EndAbilityAnimation();
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	TObjectPtr<UAnimSequence> AttackAnimation = nullptr;
 
 };
