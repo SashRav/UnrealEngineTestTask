@@ -60,6 +60,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UCameraComponent> FollowCamera = nullptr;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	TObjectPtr<UStaticMeshComponent> WeaponStaticMesh = nullptr;
+
 	// Animation Trajectory
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UCharacterTrajectoryComponent> TrajectoryComponent = nullptr;
