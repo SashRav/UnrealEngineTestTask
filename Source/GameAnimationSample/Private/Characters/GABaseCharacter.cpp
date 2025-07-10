@@ -13,6 +13,7 @@ AGABaseCharacter::AGABaseCharacter()
 
 	AbilitySystemComponent = CreateDefaultSubobject<UGAPlayerAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	HealthAttributeSet = CreateDefaultSubobject<UGAHealthAttributeSet>(TEXT("HealthAttributeSet"));
+	HealthAttributeSet->OnCurrentHealthUpdated.AddDynamic(this, &AGABaseCharacter::UpdateHealthWidget);
 
 	//Animations setup
 	TrajectoryComponent = CreateDefaultSubobject<UCharacterTrajectoryComponent>(TEXT("TrajectoryComponent"));

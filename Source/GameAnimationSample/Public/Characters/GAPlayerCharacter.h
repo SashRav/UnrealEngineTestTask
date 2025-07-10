@@ -36,6 +36,8 @@ protected:
 	//Run Attack Ability
 	void AttackEnemy(const FInputActionValue& Value);
 
+	virtual void UpdateHealthWidget(float NewHealth) override;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction = nullptr;
 

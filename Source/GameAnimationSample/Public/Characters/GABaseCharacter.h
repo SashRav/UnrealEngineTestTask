@@ -25,6 +25,9 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	virtual void UpdateHealthWidget(float NewHealth) {};
+
 	//Ablity System
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UGAPlayerAbilitySystemComponent> AbilitySystemComponent = nullptr;

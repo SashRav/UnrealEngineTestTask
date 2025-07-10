@@ -7,6 +7,8 @@
 #include "AbilitySystemComponent.h"
 #include "GAHealthAttributeSet.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCurrentHealthUpdated, float, Health);
+
 UCLASS()
 class GAMEANIMATIONSAMPLE_API UGAHealthAttributeSet : public UGABaseAttributeSet
 {
@@ -20,6 +22,9 @@ public:
 
 	ATTRIBUTE_ACCESSORS(ThisClass, Health);
 	ATTRIBUTE_ACCESSORS(ThisClass, MaxHealth);
+
+	UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category = "Health")
+	FCurrentHealthUpdated OnCurrentHealthUpdated;
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))

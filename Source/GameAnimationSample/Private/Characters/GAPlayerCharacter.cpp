@@ -54,6 +54,11 @@ void AGAPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 }
 
+void AGAPlayerCharacter::UpdateHealthWidget(float NewHealth)
+{
+	UE_LOG(LogTemp, Display, TEXT("Health updated, new health:%f"), NewHealth);
+}
+
 void AGAPlayerCharacter::Move(const FInputActionValue& Value)
 {
 	if (GetController())

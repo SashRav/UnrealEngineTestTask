@@ -34,4 +34,6 @@ void UGAHealthAttributeSet::PostAttributeChange(const FGameplayAttribute& Attrib
             AbilityComponent->OnCharacterDeath();
         }
     }
+
+    OnCurrentHealthUpdated.Broadcast(GetHealth());
 }
