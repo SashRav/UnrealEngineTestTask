@@ -8,9 +8,6 @@
 AGABaseEnemyCharacter::AGABaseEnemyCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
-
-	AbilitySystemComponent = CreateDefaultSubobject<UGAPlayerAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	HealthAttributeSet = CreateDefaultSubobject<UGAHealthAttributeSet>(TEXT("HealthAttributeSet"));
 }
 
 void AGABaseEnemyCharacter::BeginPlay()

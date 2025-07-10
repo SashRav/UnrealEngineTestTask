@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "Characters/GABaseCharacter.h"
 #include "GABaseEnemyCharacter.generated.h"
 
 class UGAPlayerAbilitySystemComponent;
 class UGAHealthAttributeSet;
 
 UCLASS()
-class GAMEANIMATIONSAMPLE_API AGABaseEnemyCharacter : public ACharacter
+class GAMEANIMATIONSAMPLE_API AGABaseEnemyCharacter : public AGABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -19,12 +19,4 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	TObjectPtr<UGAPlayerAbilitySystemComponent> AbilitySystemComponent = nullptr;
-
-	UPROPERTY()
-	TObjectPtr<UGAHealthAttributeSet> HealthAttributeSet = nullptr;
-
-
 };

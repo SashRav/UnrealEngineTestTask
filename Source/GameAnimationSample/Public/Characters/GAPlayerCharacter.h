@@ -3,22 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "AbilitySystemInterface.h"
+#include "Characters/GABaseCharacter.h"
 #include "GameplayTagContainer.h"
 #include "GAPlayerCharacter.generated.h"
 
 class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
-class UCharacterTrajectoryComponent;
-class UGAPlayerAbilitySystemComponent;
-class UGAHealthAttributeSet;
 class UGameplayAbility;
 struct FInputActionValue;
 
 UCLASS()
-class GAMEANIMATIONSAMPLE_API AGAPlayerCharacter : public ACharacter, public IAbilitySystemInterface
+class GAMEANIMATIONSAMPLE_API AGAPlayerCharacter : public AGABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -28,10 +24,6 @@ protected:
 public:	
 	AGAPlayerCharacter();
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
-	//Ability System
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	TObjectPtr<UGAHealthAttributeSet> GetHealthAttributeSet() const { return HealthAttributeSet; }
 
 protected:
 	// Charater Movement
@@ -63,20 +55,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> WeaponStaticMesh = nullptr;
 
-	// Animation Trajectory
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	TObjectPtr<UCharacterTrajectoryComponent> TrajectoryComponent = nullptr;
-
-	//Ablity System
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	TObjectPtr<UGAPlayerAbilitySystemComponent> AbilitySystemComponent = nullptr;
-
-	UPROPERTY()
-	TObjectPtr<UGAHealthAttributeSet> HealthAttributeSet = nullptr;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
 	TSubclassOf<UGameplayAbility> AttackAbility;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
-	FGameplayTagContainer GameplayTagsContainer;
 };

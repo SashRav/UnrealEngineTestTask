@@ -6,7 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "CharacterTrajectoryComponent.h"
+
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
 #include "AbilitySystem/Attributes/GAHealthAttributeSet.h"
 
@@ -25,13 +25,6 @@ AGAPlayerCharacter::AGAPlayerCharacter()
 
 	WeaponStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
 	WeaponStaticMesh->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("weapon_socket"));
-
-	//Animations setup
-	TrajectoryComponent = CreateDefaultSubobject<UCharacterTrajectoryComponent>(TEXT("TrajectoryComponent"));
-
-	//Ability System setup
-	AbilitySystemComponent = CreateDefaultSubobject<UGAPlayerAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	HealthAttributeSet = CreateDefaultSubobject<UGAHealthAttributeSet>(TEXT("HealthAttributeSet"));
 }
 
 void AGAPlayerCharacter::BeginPlay()
@@ -87,11 +80,6 @@ void AGAPlayerCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
-}
-
-UAbilitySystemComponent* AGAPlayerCharacter::GetAbilitySystemComponent() const
-{
-	return AbilitySystemComponent;
 }
 
 void AGAPlayerCharacter::GiveDefaultAbilities()
