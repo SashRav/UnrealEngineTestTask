@@ -25,4 +25,6 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UGAHealthAttributeSet> HealthAttributeSet = nullptr;
+
+
 };
