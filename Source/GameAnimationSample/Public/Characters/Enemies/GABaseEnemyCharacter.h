@@ -6,8 +6,8 @@
 #include "Characters/GABaseCharacter.h"
 #include "GABaseEnemyCharacter.generated.h"
 
-class UGAPlayerAbilitySystemComponent;
-class UGAHealthAttributeSet;
+class UWidgetComponent;
+class UGAHealthBarWidget;
 
 UCLASS()
 class GAMEANIMATIONSAMPLE_API AGABaseEnemyCharacter : public AGABaseCharacter
@@ -19,4 +19,13 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	virtual void UpdateHealthWidget(float NewHealth, float MaxHealth);
+
+	// Components
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	TObjectPtr<UWidgetComponent> HealthBar = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UGAHealthBarWidget> HealthBarWidget = nullptr;
 };

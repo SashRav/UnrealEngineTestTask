@@ -35,5 +35,5 @@ void UGAHealthAttributeSet::PostAttributeChange(const FGameplayAttribute& Attrib
         }
     }
 
-    OnCurrentHealthUpdated.Broadcast(GetHealth());
+    OnCurrentHealthUpdated.Broadcast(GetHealth(), GetMaxHealth());
 }

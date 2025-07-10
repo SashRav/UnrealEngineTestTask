@@ -11,6 +11,7 @@ class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
 class UGameplayAbility;
+class AGAGameHUD;
 struct FInputActionValue;
 
 UCLASS()
@@ -36,7 +37,7 @@ protected:
 	//Run Attack Ability
 	void AttackEnemy(const FInputActionValue& Value);
 
-	virtual void UpdateHealthWidget(float NewHealth) override;
+	virtual void UpdateHealthWidget(float NewHealth, float MaxHealth) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction = nullptr;
@@ -57,6 +58,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> WeaponStaticMesh = nullptr;
 
+	//UI
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+	AGAGameHUD* GameHUD;
+
+	//Ability
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
 	TSubclassOf<UGameplayAbility> AttackAbility;
 };

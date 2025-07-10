@@ -7,7 +7,7 @@
 #include "AbilitySystemComponent.h"
 #include "GAHealthAttributeSet.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCurrentHealthUpdated, float, Health);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCurrentHealthUpdated, float, Health, float, MaxHealth);
 
 UCLASS()
 class GAMEANIMATIONSAMPLE_API UGAHealthAttributeSet : public UGABaseAttributeSet

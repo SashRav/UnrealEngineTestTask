@@ -6,9 +6,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
 #include "AbilitySystem/Attributes/GAHealthAttributeSet.h"
+#include "UI/GAGameHUD.h"
 
 AGAPlayerCharacter::AGAPlayerCharacter()
 {
@@ -39,6 +39,16 @@ void AGAPlayerCharacter::BeginPlay()
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	
 	GiveDefaultAbilities();
+	
+	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	{
+		GameHUD = Cast<AGAGameHUD>(PlayerController->GetHUD());
+	}
+
+	if (HealthAttributeSet)
+	{
+		UpdateHealthWidget(HealthAttributeSet->GetHealth(), HealthAttributeSet->GetMaxHealth());
+	}
 }
 
 // Called to bind functionality to input
@@ -54,9 +64,13 @@ void AGAPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 }
 
-void AGAPlayerCharacter::UpdateHealthWidget(float NewHealth)
+void AGAPlayerCharacter::UpdateHealthWidget(float NewHealth, float MaxHealth)
 {
-	UE_LOG(LogTemp, Display, TEXT("Health updated, new health:%f"), NewHealth);
+	if (GameHUD && MaxHealth != 0) 
+	{
+		const float HealthPercent = NewHealth / MaxHealth;
+		GameHUD->UpdateHealthPercent(HealthPercent);
+	}
 }
 
 void AGAPlayerCharacter::Move(const FInputActionValue& Value)

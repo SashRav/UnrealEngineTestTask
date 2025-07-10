@@ -26,7 +26,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	virtual void UpdateHealthWidget(float NewHealth) {};
+	virtual void UpdateHealthWidget(float NewHealth, float MaxHealth) {};
 
 	//Ablity System
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
