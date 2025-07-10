@@ -27,4 +27,6 @@ UAbilitySystemComponent* AGABaseCharacter::GetAbilitySystemComponent() const
 void AGABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AbilitySystemComponent->SetupBaseTags();
 }

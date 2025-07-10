@@ -24,7 +24,7 @@ AGAPlayerCharacter::AGAPlayerCharacter()
 	FollowCamera->bUsePawnControlRotation = false;
 
 	WeaponStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
-	WeaponStaticMesh->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("weapon_socket"));
+	WeaponStaticMesh->SetupAttachment(GetMesh(), TEXT("weapon_socket"));
 }
 
 void AGAPlayerCharacter::BeginPlay()

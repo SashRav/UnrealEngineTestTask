@@ -13,10 +13,9 @@ class GAMEANIMATIONSAMPLE_API UGAPlayerAbilitySystemComponent : public UAbilityS
 	
 public:
 	void OnCharacterDeath();
+	void SetupBaseTags();
 
 protected:
-	virtual void BeginPlay() override;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
 	FGameplayTag AliveTag;
 };

@@ -11,7 +11,7 @@ void UGAPlayerAbilitySystemComponent::OnCharacterDeath()
 	RemoveLooseGameplayTag(AliveTag);
 }
 
-void UGAPlayerAbilitySystemComponent::BeginPlay()
+void UGAPlayerAbilitySystemComponent::SetupBaseTags()
 {
 	AddLooseGameplayTag(AliveTag);
 }
