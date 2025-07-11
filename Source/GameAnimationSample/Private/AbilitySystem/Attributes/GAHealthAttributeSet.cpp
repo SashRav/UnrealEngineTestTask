@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Attributes/GAHealthAttributeSet.h"
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
+#include "GameplayEffectExtension.h"
 
 UGAHealthAttributeSet::UGAHealthAttributeSet()
 {
@@ -10,22 +11,17 @@ UGAHealthAttributeSet::UGAHealthAttributeSet()
 	InitMaxHealth(100.f);
 }
 
-void UGAHealthAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+void UGAHealthAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
-    Super::PreAttributeChange(Attribute, NewValue);
+    Super::PostGameplayEffectExecute(Data);
 
-    //Clamp max Health value to Max Health
-
-    if (Attribute == GetHealthAttribute())
+    if (Data.EvaluatedData.Attribute == GetHealthAttribute())
     {
-        NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+        const float ClampedHealth = FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth());
+        SetHealth(ClampedHealth);
     }
-}
-
-void UGAHealthAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
-{
     // Check if character is dead
-    if (GetHealth() <= 0.f) 
+    if (GetHealth() <= 0.f)
     {
         UAbilitySystemComponent* ASC = GetOwningAbilitySystemComponent();
 
