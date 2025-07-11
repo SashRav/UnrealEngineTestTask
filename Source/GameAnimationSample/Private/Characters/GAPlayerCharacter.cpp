@@ -34,7 +34,9 @@ void AGAPlayerCharacter::BeginPlay()
 	check(MoveAction);
 	check(LookAction);
 	check(AttackAction);
+	check(HealAction);
 	check(AttackAbility);
+	check(HealAbility);
 
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	
@@ -61,6 +63,7 @@ void AGAPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGAPlayerCharacter::Look);
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGAPlayerCharacter::Move);
 		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Started, this, &AGAPlayerCharacter::AttackEnemy);
+		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AGAPlayerCharacter::HealPlayer);
 	}
 }
 
@@ -109,8 +112,11 @@ void AGAPlayerCharacter::GiveDefaultAbilities()
 		return;
 	}
 	
-	const FGameplayAbilitySpec AbilitySpec(AttackAbility, 1);
-	AbilitySystemComponent->GiveAbility(AbilitySpec);
+	const FGameplayAbilitySpec AttackAbilitySpec(AttackAbility, 1);
+	AbilitySystemComponent->GiveAbility(AttackAbilitySpec);
+
+	const FGameplayAbilitySpec HealAbilitySpec(HealAbility, 1);
+	AbilitySystemComponent->GiveAbility(HealAbilitySpec);
 }
 
 void AGAPlayerCharacter::AttackEnemy(const FInputActionValue& Value)
@@ -120,7 +126,18 @@ void AGAPlayerCharacter::AttackEnemy(const FInputActionValue& Value)
 		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in AttackEnemy()"));
 		return;
 	}
-
 	AbilitySystemComponent->TryActivateAbilityByClass(AttackAbility);
+	
+}
+
+void AGAPlayerCharacter::HealPlayer(const FInputActionValue& Value)
+{
+	if (!AbilitySystemComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in HealPlayer()"));
+		return;
+	}
+
+	AbilitySystemComponent->TryActivateAbilityByClass(HealAbility);
 }
 

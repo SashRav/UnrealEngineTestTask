@@ -36,6 +36,7 @@ protected:
 
 	//Run Attack Ability
 	void AttackEnemy(const FInputActionValue& Value);
+	void HealPlayer(const FInputActionValue& Value);
 
 	virtual void UpdateHealthWidget(float NewHealth, float MaxHealth) override;
 
@@ -48,6 +49,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TObjectPtr<UInputAction> AttackAction = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TObjectPtr<UInputAction> HealAction = nullptr;
+
 	// Components
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<USpringArmComponent> CameraBoom = nullptr;
@@ -59,10 +63,13 @@ protected:
 	TObjectPtr<UStaticMeshComponent> WeaponStaticMesh = nullptr;
 
 	//UI
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
-	AGAGameHUD* GameHUD;
+	UPROPERTY()
+	TObjectPtr<AGAGameHUD> GameHUD = nullptr;
 
 	//Ability
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
 	TSubclassOf<UGameplayAbility> AttackAbility;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
+	TSubclassOf<UGameplayAbility> HealAbility;
 };
