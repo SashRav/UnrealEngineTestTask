@@ -50,7 +50,6 @@ void AGAPlayerCharacter::BeginPlay()
 	}
 }
 
-// Called to bind functionality to input
 void AGAPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);

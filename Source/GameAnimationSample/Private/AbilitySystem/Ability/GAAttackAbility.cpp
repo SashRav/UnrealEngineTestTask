@@ -16,9 +16,6 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 
 	check(AttackAnimation);
 
-	/*if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Ability Works from code"));*/
-
 	GetAbilitySystemComponentFromActorInfo()->AddLooseGameplayTags(ActivationOwnedTags);
 
 	FTimerHandle AbilityhDurationTime;
@@ -27,8 +24,6 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 
 void UGAAttackAbility::OnEndAbilityAnimation()
 {
-	//if (GEngine)
-	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Ability Ended"));
 	GetAbilitySystemComponentFromActorInfo()->RemoveLooseGameplayTags(ActivationOwnedTags);
 
 	EndAbility(LocalHandle, &LocalActorInfo, LocalActivationInfo, true, false);
