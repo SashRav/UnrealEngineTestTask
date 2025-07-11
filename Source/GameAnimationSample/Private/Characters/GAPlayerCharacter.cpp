@@ -22,9 +22,6 @@ AGAPlayerCharacter::AGAPlayerCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
-
-	WeaponStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
-	WeaponStaticMesh->SetupAttachment(GetMesh(), TEXT("weapon_socket"));
 }
 
 void AGAPlayerCharacter::BeginPlay()

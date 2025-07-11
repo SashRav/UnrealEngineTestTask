@@ -59,9 +59,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UCameraComponent> FollowCamera = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	TObjectPtr<UStaticMeshComponent> WeaponStaticMesh = nullptr;
-
 	//UI
 	UPROPERTY()
 	TObjectPtr<AGAGameHUD> GameHUD = nullptr;

@@ -17,6 +17,9 @@ AGABaseCharacter::AGABaseCharacter()
 
 	//Animations setup
 	TrajectoryComponent = CreateDefaultSubobject<UCharacterTrajectoryComponent>(TEXT("TrajectoryComponent"));
+
+	WeaponStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
+	WeaponStaticMesh->SetupAttachment(GetMesh(), TEXT("weapon_socket"));
 }
 
 UAbilitySystemComponent* AGABaseCharacter::GetAbilitySystemComponent() const

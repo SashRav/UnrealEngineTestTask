@@ -38,4 +38,7 @@ protected:
 	// Animation Trajectory
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UCharacterTrajectoryComponent> TrajectoryComponent = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	TObjectPtr<UStaticMeshComponent> WeaponStaticMesh = nullptr;
 };
