@@ -7,10 +7,8 @@
 #include "GameplayTagContainer.h"
 #include "GAPlayerCharacter.generated.h"
 
-class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
-class UGameplayAbility;
 class AGAGameHUD;
 struct FInputActionValue;
 
@@ -24,33 +22,9 @@ protected:
 
 public:	
 	AGAPlayerCharacter();
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 protected:
-	// Charater Movement
-	void Move(const FInputActionValue& Value);
-	void Look(const FInputActionValue& Value);
-	
-	// Setup Default Abilities
-	void GiveDefaultAbilities();
-
-	//Run Attack Ability
-	void AttackEnemy(const FInputActionValue& Value);
-	void HealPlayer(const FInputActionValue& Value);
-
 	virtual void UpdateHealthWidget(float NewHealth, float MaxHealth) override;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> MoveAction = nullptr;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> LookAction = nullptr;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> AttackAction = nullptr;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> HealAction = nullptr;
 
 	// Components
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
@@ -62,11 +36,4 @@ protected:
 	//UI
 	UPROPERTY()
 	TObjectPtr<AGAGameHUD> GameHUD = nullptr;
-
-	//Ability
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
-	TSubclassOf<UGameplayAbility> AttackAbility;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
-	TSubclassOf<UGameplayAbility> HealAbility;
 };

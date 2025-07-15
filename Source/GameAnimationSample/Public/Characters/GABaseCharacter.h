@@ -10,6 +10,7 @@
 class UGAPlayerAbilitySystemComponent;
 class UGAHealthAttributeSet;
 class UCharacterTrajectoryComponent;
+class UGameplayAbility;
 
 UCLASS()
 class GAMEANIMATIONSAMPLE_API AGABaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -24,6 +25,9 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	// Setup Default Abilities
+	void SetDefaultAbilities();
 
 	UFUNCTION()
 	virtual void UpdateHealthWidget(float NewHealth, float MaxHealth) {};
@@ -41,4 +45,11 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> WeaponStaticMesh = nullptr;
+
+	//Ability
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
+	TSubclassOf<UGameplayAbility> AttackAbility;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
+	TSubclassOf<UGameplayAbility> HealAbility;
 };

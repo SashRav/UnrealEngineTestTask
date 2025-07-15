@@ -31,5 +31,33 @@ void AGABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AbilitySystemComponent->SetupBaseTags();
+	check(AttackAbility);
+	check(HealAbility);
+
+	if (AbilitySystemComponent) 
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+		AbilitySystemComponent->SetupBaseTags();
+	}
+
+	SetDefaultAbilities();
+
+	if (HealthAttributeSet)
+	{
+		UpdateHealthWidget(HealthAttributeSet->GetHealth(), HealthAttributeSet->GetMaxHealth());
+	}
+}
+
+void AGABaseCharacter::SetDefaultAbilities()
+{
+	if (!AbilitySystemComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in GiveDefaultAbilities()"));
+		return;
+	}
+	const FGameplayAbilitySpec AttackAbilitySpec(AttackAbility, 1);
+	AbilitySystemComponent->GiveAbility(AttackAbilitySpec);
+
+	const FGameplayAbilitySpec HealAbilitySpec(HealAbility, 1);
+	AbilitySystemComponent->GiveAbility(HealAbilitySpec);
 }
