@@ -26,6 +26,18 @@ UAbilitySystemComponent* AGABaseCharacter::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
+void AGABaseCharacter::ActivateAttackAbility()
+{
+	if (!AbilitySystemComponent) return;
+	AbilitySystemComponent->TryActivateAbilityByClass(AttackAbility);
+}
+
+void AGABaseCharacter::ActivateHealAbility()
+{
+	if (!AbilitySystemComponent) return; 
+	AbilitySystemComponent->TryActivateAbilityByClass(HealAbility);
+}
+
 void AGABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();

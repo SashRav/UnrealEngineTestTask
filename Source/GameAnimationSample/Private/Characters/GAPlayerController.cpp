@@ -5,6 +5,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "InputMappingContext.h"
+#include "Characters/GABaseCharacter.h"
 
 void AGAPlayerController::BeginPlay()
 {
@@ -35,6 +36,13 @@ void AGAPlayerController::SetupInputComponent()
 	}
 }
 
+void AGAPlayerController::OnPossess(APawn* aPawn)
+{
+	Super::OnPossess(aPawn);
+
+	OwningCharacter = Cast<AGABaseCharacter>(aPawn);
+}
+
 void AGAPlayerController::Move(const FInputActionValue& Value)
 {
 	if (APawn* PlayerPawn = GetPawn()) 
@@ -62,23 +70,16 @@ void AGAPlayerController::Look(const FInputActionValue& Value)
 
 void AGAPlayerController::RunAttackAbility(const FInputActionValue& Value)
 {
-	//ToDo: Move Attack logic
-	//	if (!AbilitySystemComponent)
-//	{
-//		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in AttackEnemy()"));
-//		return;
-//	}
-//	AbilitySystemComponent->TryActivateAbilityByClass(AttackAbility);
+	if (OwningCharacter)
+	{
+		OwningCharacter->ActivateAttackAbility();
+	}
 }
 
 void AGAPlayerController::RunHealAbility(const FInputActionValue& Value)
 {
-	//ToDo: Move Heal logic
-	//	if (!AbilitySystemComponent)
-//	{
-//		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in HealPlayer()"));
-//		return;
-//	}
-//
-//	AbilitySystemComponent->TryActivateAbilityByClass(HealAbility);
+	if (OwningCharacter)
+	{
+		OwningCharacter->ActivateHealAbility();
+	}
 }

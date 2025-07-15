@@ -28,6 +28,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category = "Health")
 	FCharacterHealthUpdated OnCharacterHealthUpdated;
 
+	void ActivateAttackAbility();
+	void ActivateHealAbility();
+
 protected:
 	virtual void BeginPlay() override;
 

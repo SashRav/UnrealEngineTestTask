@@ -8,6 +8,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class AGABaseCharacter;
 struct FInputActionValue;
 
 UCLASS()
@@ -18,6 +19,8 @@ class GAMEANIMATIONSAMPLE_API AGAPlayerController : public APlayerController
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
+
+	virtual void OnPossess(APawn* aPawn) override;
 
 	// Charater Movement
 	void Move(const FInputActionValue& Value);
@@ -40,4 +43,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TObjectPtr<UInputAction> HealAction = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<AGABaseCharacter> OwningCharacter;
 };
