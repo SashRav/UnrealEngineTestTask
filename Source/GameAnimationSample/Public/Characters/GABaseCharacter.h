@@ -7,6 +7,8 @@
 #include "AbilitySystemInterface.h"
 #include "GABaseCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCharacterHealthUpdated, float, NewHealth, float, MaxHealth);
+
 class UGAPlayerAbilitySystemComponent;
 class UGAHealthAttributeSet;
 class UCharacterTrajectoryComponent;
@@ -23,6 +25,9 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	TObjectPtr<UGAHealthAttributeSet> GetHealthAttributeSet() const { return HealthAttributeSet; }
 
+	UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category = "Health")
+	FCharacterHealthUpdated OnCharacterHealthUpdated;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -30,7 +35,7 @@ protected:
 	void SetDefaultAbilities();
 
 	UFUNCTION()
-	virtual void UpdateHealthWidget(float NewHealth, float MaxHealth) {};
+	void UpdateHealthData(float NewHealth, float MaxHealth);
 
 	//Ablity System
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")

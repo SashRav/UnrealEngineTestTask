@@ -37,8 +37,6 @@ void AGAPlayerController::SetupInputComponent()
 
 void AGAPlayerController::Move(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Display, TEXT("Move"));
-
 	if (APawn* PlayerPawn = GetPawn()) 
 	{
 		FVector2D MovementVector = Value.Get<FVector2D>();
@@ -56,8 +54,6 @@ void AGAPlayerController::Move(const FInputActionValue& Value)
 
 void AGAPlayerController::Look(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Display, TEXT("Look"));
-
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
 	AddYawInput(LookAxisVector.X);
@@ -67,9 +63,22 @@ void AGAPlayerController::Look(const FInputActionValue& Value)
 void AGAPlayerController::RunAttackAbility(const FInputActionValue& Value)
 {
 	//ToDo: Move Attack logic
+	//	if (!AbilitySystemComponent)
+//	{
+//		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in AttackEnemy()"));
+//		return;
+//	}
+//	AbilitySystemComponent->TryActivateAbilityByClass(AttackAbility);
 }
 
 void AGAPlayerController::RunHealAbility(const FInputActionValue& Value)
 {
 	//ToDo: Move Heal logic
+	//	if (!AbilitySystemComponent)
+//	{
+//		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in HealPlayer()"));
+//		return;
+//	}
+//
+//	AbilitySystemComponent->TryActivateAbilityByClass(HealAbility);
 }

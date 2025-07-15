@@ -17,15 +17,15 @@ class GAMEANIMATIONSAMPLE_API AGAGameHUD : public AHUD
 protected:
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	void UpdateHealthPercent(float NewHealth, float MaxHealth);
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> GameWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UGAHealthBarWidget> HealthBarWidgetClass;
-
-public:
-	void UpdateHealthPercent(const float NewPercent);
-
+	
 private:
 	UPROPERTY()
 	TObjectPtr<UUserWidget> GameWidget = nullptr;

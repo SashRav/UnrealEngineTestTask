@@ -4,6 +4,7 @@
 #include "UI/GAGameHUD.h"
 #include "Blueprint/UserWidget.h"
 #include "UI/Widgets/GAHealthBarWidget.h"
+#include "Characters/GABaseCharacter.h"
 
 void AGAGameHUD::BeginPlay()
 {
@@ -17,12 +18,18 @@ void AGAGameHUD::BeginPlay()
 
 	HealthBarWidget = CreateWidget<UGAHealthBarWidget>(GetWorld(), HealthBarWidgetClass);
 	HealthBarWidget->AddToViewport();
+
+	AGABaseCharacter* OwningPawn = Cast<AGABaseCharacter>(GetOwningPawn());
+	if (!OwningPawn) return;
+
+	OwningPawn->OnCharacterHealthUpdated.AddDynamic(this, &AGAGameHUD::UpdateHealthPercent);
 }
 
-void AGAGameHUD::UpdateHealthPercent(const float NewPercent)
+void AGAGameHUD::UpdateHealthPercent(float NewHealth, float MaxHealth)
 {
-	if (HealthBarWidget) 
+	if (HealthBarWidget && MaxHealth != 0) 
 	{
+		const float NewPercent = NewHealth / MaxHealth;
 		HealthBarWidget->UpdateHealthBar(NewPercent);
 	}
 }

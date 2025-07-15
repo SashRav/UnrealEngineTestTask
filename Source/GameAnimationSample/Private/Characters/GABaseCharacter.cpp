@@ -13,7 +13,6 @@ AGABaseCharacter::AGABaseCharacter()
 
 	AbilitySystemComponent = CreateDefaultSubobject<UGAPlayerAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	HealthAttributeSet = CreateDefaultSubobject<UGAHealthAttributeSet>(TEXT("HealthAttributeSet"));
-	HealthAttributeSet->OnCurrentHealthUpdated.AddDynamic(this, &AGABaseCharacter::UpdateHealthWidget);
 
 	//Animations setup
 	TrajectoryComponent = CreateDefaultSubobject<UCharacterTrajectoryComponent>(TEXT("TrajectoryComponent"));
@@ -44,7 +43,8 @@ void AGABaseCharacter::BeginPlay()
 
 	if (HealthAttributeSet)
 	{
-		UpdateHealthWidget(HealthAttributeSet->GetHealth(), HealthAttributeSet->GetMaxHealth());
+		HealthAttributeSet->OnCurrentHealthUpdated.AddDynamic(this, &AGABaseCharacter::UpdateHealthData);
+		UpdateHealthData(HealthAttributeSet->GetHealth(), HealthAttributeSet->GetMaxHealth());
 	}
 }
 
@@ -60,4 +60,9 @@ void AGABaseCharacter::SetDefaultAbilities()
 
 	const FGameplayAbilitySpec HealAbilitySpec(HealAbility, 1);
 	AbilitySystemComponent->GiveAbility(HealAbilitySpec);
+}
+
+void AGABaseCharacter::UpdateHealthData(float NewHealth, float MaxHealth)
+{
+	OnCharacterHealthUpdated.Broadcast(NewHealth, MaxHealth);
 }

@@ -4,7 +4,6 @@
 #include "AbilitySystem/Ability/GAAttackAbility.h"
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
 #include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
-#include "Characters/GAPlayerCharacter.h"
 
 void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
