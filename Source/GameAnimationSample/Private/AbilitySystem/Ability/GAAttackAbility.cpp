@@ -3,7 +3,6 @@
 
 #include "AbilitySystem/Ability/GAAttackAbility.h"
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
-#include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
 
 void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
@@ -16,6 +15,7 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 	check(AttackAnimation);
 
 	GetAbilitySystemComponentFromActorInfo()->AddLooseGameplayTags(ActivationOwnedTags);
+	GetAbilitySystemComponentFromActorInfo()->PlayMontage(this, ActivationInfo, AttackAnimation, 1.f);
 
 	FTimerHandle AbilityhDurationTime;
 	GetWorld()->GetTimerManager().SetTimer(AbilityhDurationTime, this, &UGAAttackAbility::OnEndAbilityAnimation, AttackAnimation->GetPlayLength(), false);
