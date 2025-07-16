@@ -44,6 +44,7 @@ void AGABaseCharacter::BeginPlay()
 
 	check(AttackAbility);
 	check(HealAbility);
+	check(DeathAbility);
 
 	if (AbilitySystemComponent) 
 	{
@@ -72,9 +73,17 @@ void AGABaseCharacter::SetDefaultAbilities()
 
 	const FGameplayAbilitySpec HealAbilitySpec(HealAbility, 1);
 	AbilitySystemComponent->GiveAbility(HealAbilitySpec);
+
+	const FGameplayAbilitySpec DeathAbilitySpec(DeathAbility, 1);
+	AbilitySystemComponent->GiveAbility(DeathAbilitySpec);
 }
 
 void AGABaseCharacter::UpdateHealthData(float NewHealth, float MaxHealth)
 {
+	if (NewHealth <= 0 && AbilitySystemComponent) 
+	{
+		AbilitySystemComponent->TryActivateAbilityByClass(DeathAbility);
+	}
+
 	OnCharacterHealthUpdated.Broadcast(NewHealth, MaxHealth);
 }

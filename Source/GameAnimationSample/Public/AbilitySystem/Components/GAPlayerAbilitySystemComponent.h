@@ -12,7 +12,6 @@ class GAMEANIMATIONSAMPLE_API UGAPlayerAbilitySystemComponent : public UAbilityS
 	GENERATED_BODY()
 	
 public:
-	void OnCharacterDeath();
 	void SetupBaseTags();
 
 protected:

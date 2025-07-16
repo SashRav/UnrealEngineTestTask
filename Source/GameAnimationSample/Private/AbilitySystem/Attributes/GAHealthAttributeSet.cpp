@@ -2,7 +2,6 @@
 
 
 #include "AbilitySystem/Attributes/GAHealthAttributeSet.h"
-#include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
 #include "GameplayEffectExtension.h"
 
 UGAHealthAttributeSet::UGAHealthAttributeSet()
@@ -19,16 +18,6 @@ void UGAHealthAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCa
     {
         const float ClampedHealth = FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth());
         SetHealth(ClampedHealth);
-    }
-    // Check if character is dead
-    if (GetHealth() <= 0.f)
-    {
-        UAbilitySystemComponent* ASC = GetOwningAbilitySystemComponent();
-
-        if (UGAPlayerAbilitySystemComponent* AbilityComponent = Cast<UGAPlayerAbilitySystemComponent>(ASC))
-        {
-            AbilityComponent->OnCharacterDeath();
-        }
     }
 
     OnCurrentHealthUpdated.Broadcast(GetHealth(), GetMaxHealth());
