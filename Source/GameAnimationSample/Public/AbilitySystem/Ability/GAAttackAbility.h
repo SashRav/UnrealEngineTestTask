@@ -20,22 +20,23 @@ public:
 		const FGameplayAbilityActivationInfo ActivationInfo,
 		const FGameplayEventData* TriggerEventData) override;
 
-	void PrintDebugMessageStart();
-	void PrintDebugMessageEnd();
+	void StartWeaponOverlapCheck();
+	void EndWeaponOverlapCheck();
 
 protected:
 	void OnEndAbilityAnimation();
 
+	UFUNCTION()
+	void OnWeaponMeshBeginOverlap(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TObjectPtr<UAnimMontage> AttackAnimation = nullptr;
 
-private:
-	UPROPERTY()
-	FGameplayAbilitySpecHandle LocalHandle;
-
-	UPROPERTY()
-	FGameplayAbilityActorInfo LocalActorInfo;
-	
-	UPROPERTY()
-	FGameplayAbilityActivationInfo LocalActivationInfo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	TSubclassOf<UGameplayEffect> DamageEffect = nullptr;
 };

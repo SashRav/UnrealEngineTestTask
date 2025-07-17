@@ -31,6 +31,8 @@ public:
 	void ActivateAttackAbility();
 	void ActivateHealAbility();
 
+	UStaticMeshComponent* GetWeaponMesh() { return WeaponStaticMesh; }
+
 protected:
 	virtual void BeginPlay() override;
 
