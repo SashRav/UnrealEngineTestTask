@@ -21,6 +21,16 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 	GetWorld()->GetTimerManager().SetTimer(AbilityhDurationTime, this, &UGAAttackAbility::OnEndAbilityAnimation, AttackAnimation->GetPlayLength(), false);
 }
 
+void UGAAttackAbility::PrintDebugMessageStart()
+{
+	UE_LOG(LogTemp, Display, TEXT("Attack Check Started"));
+}
+
+void UGAAttackAbility::PrintDebugMessageEnd()
+{
+	UE_LOG(LogTemp, Display, TEXT("Attack Check Ended"));
+}
+
 void UGAAttackAbility::OnEndAbilityAnimation()
 {
 	GetAbilitySystemComponentFromActorInfo()->RemoveLooseGameplayTags(ActivationOwnedTags);

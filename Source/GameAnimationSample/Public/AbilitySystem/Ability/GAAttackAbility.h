@@ -20,6 +20,9 @@ public:
 		const FGameplayAbilityActivationInfo ActivationInfo,
 		const FGameplayEventData* TriggerEventData) override;
 
+	void PrintDebugMessageStart();
+	void PrintDebugMessageEnd();
+
 protected:
 	void OnEndAbilityAnimation();
 
