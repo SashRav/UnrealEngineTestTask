@@ -37,8 +37,9 @@ protected:
 	// Setup Default Abilities
 	void SetDefaultAbilities();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UI")
 	void UpdateHealthData(float NewHealth, float MaxHealth);
+	void UpdateHealthData_Implementation(float NewHealth, float MaxHealth);
 
 	//Ablity System
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")

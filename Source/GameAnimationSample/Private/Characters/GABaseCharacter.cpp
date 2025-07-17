@@ -78,7 +78,7 @@ void AGABaseCharacter::SetDefaultAbilities()
 	AbilitySystemComponent->GiveAbility(DeathAbilitySpec);
 }
 
-void AGABaseCharacter::UpdateHealthData(float NewHealth, float MaxHealth)
+void AGABaseCharacter::UpdateHealthData_Implementation(float NewHealth, float MaxHealth)
 {
 	if (NewHealth <= 0 && AbilitySystemComponent) 
 	{
