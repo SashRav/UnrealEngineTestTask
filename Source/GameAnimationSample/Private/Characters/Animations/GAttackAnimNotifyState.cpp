@@ -10,52 +10,56 @@ void UGAttackAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAni
 {
 	Super::NotifyBegin(MeshComp, Animation, TotalDuration, EventReference);
 
-	//AActor* Owner = MeshComp->GetOwner();
-	//if (!Owner) return;
+	AActor* Owner = MeshComp->GetOwner();
+	if (!Owner) return;
 
-	//IAbilitySystemInterface* AbilityInterface = Cast<IAbilitySystemInterface>(Owner);
-	//if (!AbilityInterface) return;
+	IAbilitySystemInterface* AbilityInterface = Cast<IAbilitySystemInterface>(Owner);
+	if (!AbilityInterface) return;
 
-	//UAbilitySystemComponent* AbilitySystemComponent = AbilityInterface->GetAbilitySystemComponent();
-	//if (!AbilitySystemComponent) return;
+	UAbilitySystemComponent* AbilitySystemComponent = AbilityInterface->GetAbilitySystemComponent();
+	if (!AbilitySystemComponent) return;
 
+	TArray<FGameplayAbilitySpecHandle> OutAbilityHandles;
+	AbilitySystemComponent->GetAllAbilities(OutAbilityHandles);
 
-	//for (const FGameplayAbilitySpec& AbilitySpec : AbilitySystemComponent->GetActivatableAbilities())
-	//{
-	//	if (AbilitySpec.IsActive())
-	//	{
-	//		if (UGAAttackAbility* AttackAbility = Cast<UGAAttackAbility>(AbilitySpec.Ability))
-	//		{
-	//			AttackAbility->StartWeaponOverlapCheck();
-	//			break;
-	//		}
-	//	}
-	//}
+	for (const FGameplayAbilitySpecHandle& AbilitySpecHandle : OutAbilityHandles)
+	{
+		const FGameplayAbilitySpec* AbilitySpec = AbilitySystemComponent->FindAbilitySpecFromHandle(AbilitySpecHandle);
+		if (!AbilitySpec) continue;
+
+		if (UGAAttackAbility* AttackAbility = Cast<UGAAttackAbility>(AbilitySpec->GetPrimaryInstance()))
+		{
+			AttackAbility->StartWeaponOverlapCheck();
+			break;
+		}
+	}
 }
 
 void UGAttackAnimNotifyState::NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyEnd(MeshComp, Animation, EventReference);
 
-	//AActor* Owner = MeshComp->GetOwner();
-	//if (!Owner) return;
+	AActor* Owner = MeshComp->GetOwner();
+	if (!Owner) return;
 
-	//IAbilitySystemInterface* AbilityInterface = Cast<IAbilitySystemInterface>(Owner);
-	//if (!AbilityInterface) return;
+	IAbilitySystemInterface* AbilityInterface = Cast<IAbilitySystemInterface>(Owner);
+	if (!AbilityInterface) return;
 
-	//UAbilitySystemComponent* AbilitySystemComponent = AbilityInterface->GetAbilitySystemComponent();
-	//if (!AbilitySystemComponent) return;
+	UAbilitySystemComponent* AbilitySystemComponent = AbilityInterface->GetAbilitySystemComponent();
+	if (!AbilitySystemComponent) return;
 
+	TArray<FGameplayAbilitySpecHandle> OutAbilityHandles;
+	AbilitySystemComponent->GetAllAbilities(OutAbilityHandles);
 
-	//for (const FGameplayAbilitySpec& AbilitySpec : AbilitySystemComponent->GetActivatableAbilities())
-	//{
-	//	if (AbilitySpec.IsActive())
-	//	{
-	//		if (UGAAttackAbility* AttackAbility = Cast<UGAAttackAbility>(AbilitySpec.Ability))
-	//		{
-	//			AttackAbility->EndWeaponOverlapCheck();
-	//			break;
-	//		}
-	//	}
-	//}
+	for (const FGameplayAbilitySpecHandle& AbilitySpecHandle : OutAbilityHandles)
+	{
+		const FGameplayAbilitySpec* AbilitySpec = AbilitySystemComponent->FindAbilitySpecFromHandle(AbilitySpecHandle);
+		if (!AbilitySpec) continue;
+
+		if (UGAAttackAbility* AttackAbility = Cast<UGAAttackAbility>(AbilitySpec->GetPrimaryInstance()))
+		{
+			AttackAbility->EndWeaponOverlapCheck();
+			break;
+		}
+	}
 }

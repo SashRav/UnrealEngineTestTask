@@ -5,6 +5,11 @@
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
 #include "Characters/GABaseCharacter.h"
 
+UGAAttackAbility::UGAAttackAbility()
+{
+	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
+}
+
 void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
@@ -18,7 +23,7 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 	FTimerHandle AbilityhDurationTime;
 	GetWorld()->GetTimerManager().SetTimer(AbilityhDurationTime, this, &UGAAttackAbility::OnEndAbilityAnimation, AttackAnimation->GetPlayLength(), false);
 
-	StartWeaponOverlapCheck();
+	//Check for overlaps is triggered from UGAttackAnimNotifyState
 }
 
 void UGAAttackAbility::OnWeaponMeshBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -47,10 +52,10 @@ void UGAAttackAbility::StartWeaponOverlapCheck()
 
 	if (AGABaseCharacter* Character = Cast<AGABaseCharacter>(GetCurrentActorInfo()->OwnerActor.Get()))
 	{
-		if (Character->GetWeaponMesh()) 
-		{
-			Character->GetWeaponMesh()->OnComponentBeginOverlap.AddDynamic(this, &UGAAttackAbility::OnWeaponMeshBeginOverlap);
-		}
+		if (!Character->GetWeaponMesh()) return;
+		if (Character->GetWeaponMesh()->OnComponentBeginOverlap.IsAlreadyBound(this, &UGAAttackAbility::OnWeaponMeshBeginOverlap)) return;
+		
+		Character->GetWeaponMesh()->OnComponentBeginOverlap.AddDynamic(this, &UGAAttackAbility::OnWeaponMeshBeginOverlap);
 	}
 }
 

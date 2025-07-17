@@ -14,6 +14,8 @@ class GAMEANIMATIONSAMPLE_API UGAAttackAbility : public UGameplayAbility
 	GENERATED_BODY()
 	
 public:
+	UGAAttackAbility();
+
 	virtual void ActivateAbility(
 		const FGameplayAbilitySpecHandle Handle,
 		const FGameplayAbilityActorInfo* ActorInfo,
@@ -24,6 +26,7 @@ public:
 	void EndWeaponOverlapCheck();
 
 protected:
+	UFUNCTION()
 	void OnEndAbilityAnimation();
 
 	UFUNCTION()
