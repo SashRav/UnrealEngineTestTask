@@ -4,6 +4,7 @@
 #include "AbilitySystem/Ability/GAAttackAbility.h"
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
 #include "Characters/GABaseCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 UGAAttackAbility::UGAAttackAbility()
 {
@@ -22,6 +23,15 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 
 	FTimerHandle AbilityhDurationTime;
 	GetWorld()->GetTimerManager().SetTimer(AbilityhDurationTime, this, &UGAAttackAbility::OnEndAbilityAnimation, AttackAnimation->GetPlayLength(), false);
+
+	// Stop Character Movement while ability is active
+	if (AGABaseCharacter* Character = Cast<AGABaseCharacter>(ActorInfo->AvatarActor.Get()))
+	{
+		if (Character->GetCharacterMovement())
+		{
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
+		}
+	}
 
 	//Check for overlaps is triggered from UGAttackAnimNotifyState
 }
@@ -73,9 +83,18 @@ void UGAAttackAbility::EndWeaponOverlapCheck()
 void UGAAttackAbility::OnEndAbilityAnimation()
 {
 	GetAbilitySystemComponentFromActorInfo()->RemoveLooseGameplayTags(ActivationOwnedTags);
-	EndAbility(GetCurrentAbilitySpecHandle(), GetCurrentActorInfo(), GetCurrentActivationInfo(), true, false);
-	
 	EndWeaponOverlapCheck();
+
+	// Enable Walking after the end of ability
+	if (AGABaseCharacter* Character = Cast<AGABaseCharacter>(GetCurrentActorInfo()->AvatarActor.Get()))
+	{
+		if (Character->GetCharacterMovement())
+		{
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+		}
+	}
+
+	EndAbility(GetCurrentAbilitySpecHandle(), GetCurrentActorInfo(), GetCurrentActivationInfo(), true, false);
 }
 
 
