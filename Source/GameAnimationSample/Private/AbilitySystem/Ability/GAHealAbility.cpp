@@ -9,13 +9,13 @@ void UGAHealAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, co
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-	if (UAbilitySystemComponent* TargetAbilitySystemCompoennt = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(ActorInfo->OwnerActor.Get()))
+	if (UAbilitySystemComponent* TargetAbilitySystemComponent = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(ActorInfo->OwnerActor.Get()))
 	{
-		FGameplayEffectContextHandle EffectContextHandle = TargetAbilitySystemCompoennt->MakeEffectContext();
+		FGameplayEffectContextHandle EffectContextHandle = TargetAbilitySystemComponent->MakeEffectContext();
 		EffectContextHandle.AddInstigator(ActorInfo->OwnerActor.Get(), ActorInfo->OwnerActor.Get());
 
-		FGameplayEffectSpecHandle SpecHandle = TargetAbilitySystemCompoennt->MakeOutgoingSpec(EffectClass, 1.f, EffectContextHandle);
-		TargetAbilitySystemCompoennt->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		FGameplayEffectSpecHandle SpecHandle = TargetAbilitySystemComponent->MakeOutgoingSpec(EffectClass, 1.f, EffectContextHandle);
+		TargetAbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 	}
 
 	EndAbility(Handle, ActorInfo, ActivationInfo, true, false);

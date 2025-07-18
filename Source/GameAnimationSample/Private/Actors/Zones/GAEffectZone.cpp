@@ -17,13 +17,13 @@ void AGAEffectZone::BeginPlay()
 
 void AGAEffectZone::ApplyEffectToTarget(AActor* InTargetActor)
 {
-	if (UAbilitySystemComponent* TargetAbilitySystemCompoennt = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(InTargetActor))
+	if (UAbilitySystemComponent* TargetAbilitySystemComponent = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(InTargetActor))
 	{
-		FGameplayEffectContextHandle EffectContextHandle = TargetAbilitySystemCompoennt->MakeEffectContext();
+		FGameplayEffectContextHandle EffectContextHandle = TargetAbilitySystemComponent->MakeEffectContext();
 		EffectContextHandle.AddInstigator(InTargetActor, this);
 
-		FGameplayEffectSpecHandle SpecHandle = TargetAbilitySystemCompoennt->MakeOutgoingSpec(EffectClass, 1.f, EffectContextHandle);
-		TargetAbilitySystemCompoennt->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		FGameplayEffectSpecHandle SpecHandle = TargetAbilitySystemComponent->MakeOutgoingSpec(EffectClass, 1.f, EffectContextHandle);
+		TargetAbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 	}
 }
 

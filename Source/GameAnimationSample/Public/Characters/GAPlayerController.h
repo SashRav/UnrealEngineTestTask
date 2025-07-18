@@ -22,7 +22,7 @@ protected:
 
 	virtual void OnPossess(APawn* aPawn) override;
 
-	// Charater Movement
+	// Character Movement
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 

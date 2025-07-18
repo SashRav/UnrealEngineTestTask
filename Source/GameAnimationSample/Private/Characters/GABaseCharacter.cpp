@@ -6,7 +6,6 @@
 #include "AbilitySystem/Attributes/GAHealthAttributeSet.h"
 #include "CharacterTrajectoryComponent.h"
 
-// Sets default values
 AGABaseCharacter::AGABaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -64,7 +63,7 @@ void AGABaseCharacter::SetDefaultAbilities()
 {
 	if (!AbilitySystemComponent)
 	{
-		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in GiveDefaultAbilities()"));
+		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is nullptr in SetDefaultAbilities()"));
 		return;
 	}
 	const FGameplayAbilitySpec AttackAbilitySpec(AttackAbility, 1);

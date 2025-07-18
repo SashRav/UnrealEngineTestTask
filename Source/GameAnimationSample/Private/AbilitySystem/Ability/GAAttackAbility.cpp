@@ -33,7 +33,7 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 		}
 	}
 
-	//Check for overlaps is triggered from UGAttackAnimNotifyState
+	//Overlap check is triggered from UGAttackAnimNotifyState
 }
 
 void UGAAttackAbility::OnWeaponMeshBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -52,7 +52,7 @@ void UGAAttackAbility::OnWeaponMeshBeginOverlap(UPrimitiveComponent* OverlappedC
 	FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(DamageEffect, 1.f, EffectContextHandle);
 	GetAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), TargetAbilitySystemComponent);
 
-	//End Check for overlaps because already hitted something
+	//End Check for overlaps because already hit something
 	EndWeaponOverlapCheck();
 }
 

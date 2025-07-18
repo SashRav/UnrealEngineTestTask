@@ -19,7 +19,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	//Gameplay Effectes
+	//Gameplay Effects
 	UFUNCTION(BlueprintCallable, Category = "Effects")
 	void ApplyEffectToTarget(AActor* InTargetActor);
 
