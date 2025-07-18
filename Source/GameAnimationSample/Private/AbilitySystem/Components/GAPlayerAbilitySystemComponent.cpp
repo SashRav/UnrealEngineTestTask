@@ -2,8 +2,3 @@
 
 
 #include "AbilitySystem/Components/GAPlayerAbilitySystemComponent.h"
-
-void UGAPlayerAbilitySystemComponent::SetupBaseTags()
-{
-	AddLooseGameplayTag(AliveTag);
-}

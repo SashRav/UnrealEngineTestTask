@@ -10,11 +10,4 @@ UCLASS()
 class GAMEANIMATIONSAMPLE_API UGAPlayerAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
-public:
-	void SetupBaseTags();
-
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
-	FGameplayTag AliveTag;
 };

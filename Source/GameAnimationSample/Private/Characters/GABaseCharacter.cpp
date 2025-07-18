@@ -49,7 +49,6 @@ void AGABaseCharacter::BeginPlay()
 	if (AbilitySystemComponent) 
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		AbilitySystemComponent->SetupBaseTags();
 	}
 
 	SetDefaultAbilities();
