@@ -21,8 +21,8 @@ void UGAAttackAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, 
 	GetAbilitySystemComponentFromActorInfo()->AddLooseGameplayTags(ActivationOwnedTags);
 	GetAbilitySystemComponentFromActorInfo()->PlayMontage(this, ActivationInfo, AttackAnimation, 1.f);
 
-	FTimerHandle AbilityhDurationTime;
-	GetWorld()->GetTimerManager().SetTimer(AbilityhDurationTime, this, &UGAAttackAbility::OnEndAbilityAnimation, AttackAnimation->GetPlayLength(), false);
+	FTimerHandle AbilityDurationTime;
+	GetWorld()->GetTimerManager().SetTimer(AbilityDurationTime, this, &UGAAttackAbility::OnEndAbilityAnimation, AttackAnimation->GetPlayLength(), false);
 
 	// Stop Character Movement while ability is active
 	if (AGABaseCharacter* Character = Cast<AGABaseCharacter>(ActorInfo->AvatarActor.Get()))

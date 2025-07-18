@@ -21,4 +21,7 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TObjectPtr<UAnimMontage> DeathAnimation = nullptr;
+
+	UFUNCTION()
+	void OnEndAbilityAnimation();
 };

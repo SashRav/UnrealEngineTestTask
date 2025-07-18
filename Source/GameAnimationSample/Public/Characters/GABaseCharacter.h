@@ -33,6 +33,10 @@ public:
 
 	UStaticMeshComponent* GetWeaponMesh() { return WeaponStaticMesh; }
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Death")
+	void OnCharacterDeath();
+	void OnCharacterDeath_Implementation() {};
+
 protected:
 	virtual void BeginPlay() override;
 
